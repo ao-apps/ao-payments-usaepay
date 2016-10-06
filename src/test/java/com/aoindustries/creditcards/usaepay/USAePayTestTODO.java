@@ -50,11 +50,11 @@ import junit.framework.TestSuite;
  *
  * @author  AO Industries, Inc.
  */
-public class USAePayTest extends TestCase {
+public class USAePayTestTODO extends TestCase {
 
 	private static Properties config;
 	synchronized private static String getConfig(String name) throws IOException {
-		if(config==null) config = PropertiesUtils.loadFromResource(USAePayTest.class, "USAePayTest.properties");
+		if(config==null) config = PropertiesUtils.loadFromResource(USAePayTestTODO.class, "USAePayTest.properties");
 		return config.getProperty(name);
 	}
 
@@ -63,7 +63,7 @@ public class USAePayTest extends TestCase {
 	private Group group;
 	private List<CreditCard> testGoodCreditCards;
 
-	public USAePayTest(String testName) {
+	public USAePayTestTODO(String testName) {
 		super(testName);
 	}
 
@@ -248,7 +248,7 @@ public class USAePayTest extends TestCase {
 	}
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite(USAePayTest.class);
+		TestSuite suite = new TestSuite(USAePayTestTODO.class);
 		return suite;
 	}
 

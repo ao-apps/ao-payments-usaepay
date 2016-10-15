@@ -4,7 +4,7 @@ Provider for the [USAePay](https://usaepay.info/) system.
 ## Project Links
 * [Project Home](https://www.aoindustries.com/ao-credit-cards/usaepay/)
 * [API Docs](https://www.aoindustries.com/ao-credit-cards/usaepay/apidocs/)
-* [Maven Central Repository](http://search.maven.org/#search|gav|1|g:%22com.aoindustries%22%20AND%20a:%22ao-credit-cards-usaepay%22)
+* [Maven Central Repository](https://search.maven.org/#search|gav|1|g:%22com.aoindustries%22%20AND%20a:%22ao-credit-cards-usaepay%22)
 * [GitHub](https://github.com/aoindustries/ao-credit-cards-usaepay)
 
 ## Contact Us

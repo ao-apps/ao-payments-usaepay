@@ -42,7 +42,7 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 	</properties>
 
 	<name>AO Credit Cards USAePay</name>
-	<url>${project.parent.url}usaepay/</url>
+	<url>https://www.aoindustries.com${bookPath}/</url><!-- Can't inherit due to multi-module -->
 	<description>Provider for the USAePay system.</description>
 	<inceptionYear>2008</inceptionYear>
 

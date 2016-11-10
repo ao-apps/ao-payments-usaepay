@@ -38,7 +38,7 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 		<core:child page="changelog.jspx" />
 		<core:child page="apidocs/index.jspx" />
 		<p>
-			@{description.html}
+			Provider for the <ao:a href="https://usaepay.info/">USAePay</ao:a>.
 		</p>
 		<section:section label="Project Links">
 			<ul>

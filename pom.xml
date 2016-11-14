@@ -26,8 +26,9 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 
 	<parent>
 		<groupId>com.aoindustries</groupId>
-		<artifactId>ao-credit-cards</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<artifactId>ao-oss-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../../ao-oss-parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>com.aoindustries</groupId>
@@ -36,12 +37,14 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 	<packaging>jar</packaging>
 
 	<properties>
+		<javadoc.breadcrumbs><![CDATA[<a target="_top" href="https://aoindustries.com/ao-credit-cards/">AO Credit Cards</a>
+/ <a target="_top" href="${project.url}">${shortTitle}</a>]]></javadoc.breadcrumbs>
 		<shortTitle>USAePay</shortTitle>
 		<description.html><![CDATA[Provider for the <a target="_top" href="https://usaepay.info/">USAePay</a>.]]></description.html>
 	</properties>
 
 	<name>AO Credit Cards USAePay</name>
-	<url>https://aoindustries.com/${project.parent.artifactId}/usaepay/</url>
+	<url>https://aoindustries.com/ao-credit-cards/usaepay/</url>
 	<description>Provider for the USAePay system.</description>
 	<inceptionYear>2008</inceptionYear>
 

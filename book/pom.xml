@@ -33,7 +33,7 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 
 	<groupId>com.aoindustries</groupId>
 	<artifactId>ao-credit-cards-usaepay-book</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.4-validation-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>

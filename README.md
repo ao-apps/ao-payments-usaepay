@@ -1,4 +1,4 @@
-# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://aoindustries.com/) [AO Credit Cards](https://aoindustries.com/ao-credit-cards/) / [USAePay](https://aoindustries.com/ao-credit-cards/usaepay/)
+# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://github.com/aoindustries) [AO Credit Cards](https://github.com/aoindustries/ao-credit-cards) / [USAePay](https://github.com/aoindustries/ao-credit-cards-usaepay)
 <p>
 	<a href="https://aoindustries.com/life-cycle#project-current-stable">
 		<img src="https://aoindustries.com/ao-badges/project-current-stable.svg" alt="project: current stable" />

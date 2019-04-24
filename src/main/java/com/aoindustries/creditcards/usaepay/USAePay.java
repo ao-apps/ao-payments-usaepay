@@ -1,6 +1,6 @@
 /*
  * ao-credit-cards - Credit card processing API supporting multiple payment gateways.
- * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2015, 2016  AO Industries, Inc.
+ * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2015, 2016, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -34,7 +34,6 @@ import com.aoindustries.creditcards.TransactionRequest;
 import com.aoindustries.creditcards.TransactionResult;
 import com.aoindustries.creditcards.VoidResult;
 import com.aoindustries.io.IoUtils;
-import com.aoindustries.lang.NotImplementedException;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -161,12 +160,9 @@ public class USAePay implements MerchantServicesProvider {
 				uc.setDoOutput(true);
 				uc.setDoInput(true);
 
-				DataOutputStream out = new DataOutputStream(uc.getOutputStream());
-				try {
+				try (DataOutputStream out = new DataOutputStream(uc.getOutputStream())) {
 					out.writeBytes(parameterSB.toString());
 					out.flush();
-				} finally {
-					out.close();
 				}
 
 				ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -183,7 +179,7 @@ public class USAePay implements MerchantServicesProvider {
 
 			// Split on = and & and decode name/value pairs
 			if(DEBUG_RESPONSE) System.out.println("Response:");
-			Map<String,String> response = new HashMap<String,String>();
+			Map<String,String> response = new HashMap<>();
 			StringTokenizer st = new StringTokenizer(responseString, "&");
 			while(st.hasMoreTokens()) {
 				String token = st.nextToken();
@@ -311,7 +307,7 @@ public class USAePay implements MerchantServicesProvider {
 	 * http://wiki.usaepay.com/developer/errorcodes?s[]=10118
 	 */
 	static {
-		Map<String,ConvertedError> initErrors = new HashMap<String,ConvertedError>();
+		Map<String,ConvertedError> initErrors = new HashMap<>();
 		// 00001 	Password/Username Incorrect. 	Sent by login screen when the username and/or the password are incorrect.
 		initErrors.put("00001", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INSUFFICIENT_PERMISSIONS));
 		// 00002 	Access to page denied. 	The user has attempted to access a page they don't have permission to access.
@@ -557,7 +553,7 @@ public class USAePay implements MerchantServicesProvider {
 	private AuthorizationResult authorizeOrSale(TransactionRequest transactionRequest, CreditCard creditCard, String command) {
 		// Build the map of request parameters, catching ErrorCodeException after this step
 		// because any of these errors will all be considered as TransactionResult.CommunicationResult.LOCAL_ERROR
-		Map<String,String> request = new HashMap<String,String>();
+		Map<String,String> request = new HashMap<>();
 		try {
 			// Build the request parameters
 			request.put("UMcommand", command);
@@ -1101,18 +1097,21 @@ public class USAePay implements MerchantServicesProvider {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public CaptureResult capture(AuthorizationResult authorizationResult) {
-		throw new NotImplementedException();
+		throw new com.aoindustries.lang.NotImplementedException();
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public VoidResult voidTransaction(Transaction transaction) {
-		throw new NotImplementedException();
+		throw new com.aoindustries.lang.NotImplementedException();
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public CreditResult credit(TransactionRequest transactionRequest, CreditCard creditCard) {
-		throw new NotImplementedException();
+		throw new com.aoindustries.lang.NotImplementedException();
 	}
 
 	@Override
@@ -1121,16 +1120,19 @@ public class USAePay implements MerchantServicesProvider {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public String storeCreditCard(CreditCard creditCard) throws IOException {
-		throw new NotImplementedException();
+		throw new com.aoindustries.lang.NotImplementedException();
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void updateCreditCard(CreditCard creditCard) throws IOException {
-		throw new NotImplementedException();
+		throw new com.aoindustries.lang.NotImplementedException();
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void updateCreditCardNumberAndExpiration(
 		CreditCard creditCard,
 		String cardNumber,
@@ -1138,20 +1140,22 @@ public class USAePay implements MerchantServicesProvider {
 		short expirationYear,
 		String cardCode
 	) throws IOException {
-		throw new NotImplementedException();
+		throw new com.aoindustries.lang.NotImplementedException();
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void updateCreditCardExpiration(
 		CreditCard creditCard,
 		byte expirationMonth,
 		short expirationYear
 	) throws IOException {
-		throw new NotImplementedException();
+		throw new com.aoindustries.lang.NotImplementedException();
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void deleteCreditCard(CreditCard creditCard) throws IOException {
-		throw new NotImplementedException();
+		throw new com.aoindustries.lang.NotImplementedException();
 	}
 }

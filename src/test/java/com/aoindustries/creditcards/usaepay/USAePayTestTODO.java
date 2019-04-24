@@ -1,6 +1,6 @@
 /*
  * ao-credit-cards - Credit card processing API supporting multiple payment gateways.
- * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2016  AO Industries, Inc.
+ * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -120,7 +120,7 @@ public class USAePayTestTODO extends TestCase {
 			}
 		};
 
-		testGoodCreditCards = new ArrayList<CreditCard>();
+		testGoodCreditCards = new ArrayList<>();
 		testGoodCreditCards.add(
 			new CreditCard(
 				null,

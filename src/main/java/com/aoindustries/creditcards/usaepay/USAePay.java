@@ -166,11 +166,8 @@ public class USAePay implements MerchantServicesProvider {
 				}
 
 				ByteArrayOutputStream bout = new ByteArrayOutputStream();
-				InputStream in = uc.getInputStream();
-				try {
+				try (InputStream in = uc.getInputStream()) {
 					IoUtils.copy(in, bout);
-				} finally {
-					in.close();
 				}
 				responseString = bout.toString();
 			} finally {
@@ -763,6 +760,8 @@ public class USAePay implements MerchantServicesProvider {
 				null,
 				null,
 				null,
+				null,
+				null,
 				null
 			);
 		}
@@ -779,6 +778,8 @@ public class USAePay implements MerchantServicesProvider {
 				err.getErrorCode().name(),
 				err.getErrorCode(),
 				err.getMessage(),
+				null,
+				null,
 				null,
 				null,
 				null,
@@ -854,6 +855,8 @@ public class USAePay implements MerchantServicesProvider {
 					err.getErrorCode().name(),
 					err.getErrorCode(),
 					err.getMessage(),
+					null,
+					null,
 					null,
 					null,
 					null,
@@ -986,6 +989,8 @@ public class USAePay implements MerchantServicesProvider {
 				null,
 				null,
 				refNum,
+				null,
+				null,
 				result,
 				AuthorizationResult.ApprovalResult.APPROVED,
 				null,
@@ -1010,6 +1015,8 @@ public class USAePay implements MerchantServicesProvider {
 				null,
 				null,
 				refNum,
+				null,
+				null,
 				result,
 				AuthorizationResult.ApprovalResult.DECLINED,
 				errorcode,
@@ -1030,6 +1037,8 @@ public class USAePay implements MerchantServicesProvider {
 				null,
 				null,
 				refNum,
+				null,
+				null,
 				result,
 				AuthorizationResult.ApprovalResult.HOLD,
 				null,
@@ -1060,6 +1069,8 @@ public class USAePay implements MerchantServicesProvider {
 				errorCode,
 				error,
 				refNum,
+				null,
+				null,
 				null,
 				null,
 				null,

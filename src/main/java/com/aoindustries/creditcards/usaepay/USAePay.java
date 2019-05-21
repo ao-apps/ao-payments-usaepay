@@ -557,7 +557,7 @@ public class USAePay implements MerchantServicesProvider {
 			request.put("UMkey", key);
 			// Note: UMhash is added at the bottom of this block to benefit from the values that are formatted below
 			request.put("UMcard", creditCard.getCardNumber());
-			request.put("UMexpir", creditCard.getExpirationDateMMYY());
+			request.put("UMexpir", creditCard.getExpirationDateMMYY(false));
 
 			// Add tax, ship, and duty amounts
 			BigDecimal amount = transactionRequest.getAmount();
@@ -762,6 +762,9 @@ public class USAePay implements MerchantServicesProvider {
 				null,
 				null,
 				null,
+				null,
+				null,
+				null,
 				null
 			);
 		}
@@ -778,6 +781,9 @@ public class USAePay implements MerchantServicesProvider {
 				err.getErrorCode().name(),
 				err.getErrorCode(),
 				err.getMessage(),
+				null,
+				null,
+				null,
 				null,
 				null,
 				null,
@@ -855,6 +861,9 @@ public class USAePay implements MerchantServicesProvider {
 					err.getErrorCode().name(),
 					err.getErrorCode(),
 					err.getMessage(),
+					null,
+					null,
+					null,
 					null,
 					null,
 					null,
@@ -991,6 +1000,9 @@ public class USAePay implements MerchantServicesProvider {
 				refNum,
 				null,
 				null,
+				null,
+				null,
+				null,
 				result,
 				AuthorizationResult.ApprovalResult.APPROVED,
 				null,
@@ -1017,6 +1029,9 @@ public class USAePay implements MerchantServicesProvider {
 				refNum,
 				null,
 				null,
+				null,
+				null,
+				null,
 				result,
 				AuthorizationResult.ApprovalResult.DECLINED,
 				errorcode,
@@ -1037,6 +1052,9 @@ public class USAePay implements MerchantServicesProvider {
 				null,
 				null,
 				refNum,
+				null,
+				null,
+				null,
 				null,
 				null,
 				result,
@@ -1069,6 +1087,9 @@ public class USAePay implements MerchantServicesProvider {
 				errorCode,
 				error,
 				refNum,
+				null,
+				null,
+				null,
 				null,
 				null,
 				null,

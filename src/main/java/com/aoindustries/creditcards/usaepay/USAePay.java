@@ -47,6 +47,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -76,7 +78,10 @@ public class USAePay implements MerchantServicesProvider {
 	private static final boolean DEBUG_REQUEST = false;
 	private static final boolean DEBUG_RESPONSE = false;
 
-	private static final String SOFTWARE_VERSION = USAePay.class.getName()+" 1.0.1";
+	// TODO: Get from a Maven.properties
+	private static final String SOFTWARE_VERSION = USAePay.class.getName()+" 1.2.0";
+
+	private static final Charset ENCODING = StandardCharsets.UTF_8;
 
 	private final String providerId;
 	private final String postUrl;
@@ -124,14 +129,22 @@ public class USAePay implements MerchantServicesProvider {
 		return pin;
 	}
 
-	private static String encode(String value) throws UnsupportedEncodingException {
-		return URLEncoder.encode(value, "UTF-8");
-		//return value.replace('&', '-').replace('=', '-');
+	private static String encode(String value) {
+		try {
+			return URLEncoder.encode(value, ENCODING.name());
+			//return value.replace('&', '-').replace('=', '-');
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + ENCODING + ") should always exist", e);
+		}
 	}
 
-	private static String decode(String value) throws UnsupportedEncodingException {
-		return URLDecoder.decode(value, "UTF-8");
-		//return value;
+	private static String decode(String value) {
+		try {
+			return URLDecoder.decode(value, ENCODING.name());
+			//return value;
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + ENCODING + ") should always exist", e);
+		}
 	}
 
 	/**

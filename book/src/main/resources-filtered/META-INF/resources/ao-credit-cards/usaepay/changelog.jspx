@@ -36,7 +36,7 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2016-10-29T19:11:42-0500"
-		dateModified="2019-10-05T15:00:08-0500"
+		dateModified="2019-10-05T15:22:14-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-credit-cards-usaepay:pom.version}" />
@@ -51,13 +51,22 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 				groupId="@{documented.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{documented.scm.url}"
-			>
-				<ul>
-					<li>Using <code>java.nio.charset.StandardCharsets</code> instead of <code>"UTF-8"</code>.</li>
-					<li>Now getting <code>UMsoftware</code> ("Software Version)" from Maven build properties.</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.1.1"
+			datePublished="2019-10-05T15:22:14-0500"
+			groupId="@{documented.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{documented.scm.url}"
+		>
+			<ul>
+				<li>Using <code>java.nio.charset.StandardCharsets</code> instead of <code>"UTF-8"</code>.</li>
+				<li>Now getting <code>UMsoftware</code> ("Software Version)" from Maven build properties.</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"

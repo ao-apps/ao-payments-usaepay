@@ -1,24 +1,24 @@
 /*
- * ao-credit-cards - Credit card processing API supporting multiple payment gateways.
+ * ao-credit-cards-usaepay - Provider for the USAePay system.
  * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2015, 2016, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
  *
- * This file is part of ao-credit-cards.
+ * This file is part of ao-credit-cards-usaepay.
  *
- * ao-credit-cards is free software: you can redistribute it and/or modify
+ * ao-credit-cards-usaepay is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * ao-credit-cards is distributed in the hope that it will be useful,
+ * ao-credit-cards-usaepay is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with ao-credit-cards.  If not, see <http://www.gnu.org/licenses/>.
+ * along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.aoindustries.creditcards.usaepay;
 
@@ -78,8 +78,9 @@ public class USAePay implements MerchantServicesProvider {
 	private static final boolean DEBUG_REQUEST = false;
 	private static final boolean DEBUG_RESPONSE = false;
 
-	// TODO: Get from a Maven.properties
-	private static final String SOFTWARE_VERSION = USAePay.class.getName()+" 1.2.0";
+	private static final String SOFTWARE_VERSION =
+		Maven.properties.getProperty("project.artifactId")
+		+ '-' + Maven.properties.getProperty("project.version");
 
 	private static final Charset ENCODING = StandardCharsets.UTF_8;
 

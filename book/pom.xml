@@ -35,8 +35,8 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 	<properties>
 		<!-- These values are copied from the project being documented -->
 		<documented.groupId>com.aoindustries</documented.groupId><documented.artifactId>ao-credit-cards-usaepay</documented.artifactId>
-		<documented.javaVersion>1.7</documented.javaVersion>
-		<documented.javac.link.javaApi>${javac.link.javaApi.jdk7}</documented.javac.link.javaApi>
+		<documented.javaVersion>1.8</documented.javaVersion>
+		<documented.javac.link.javaApi>${javac.link.javaApi.jdk8}</documented.javac.link.javaApi>
 		<documented.name>AO Credit Cards USAePay</documented.name>
 		<documented.shortTitle>USAePay</documented.shortTitle>
 		<documented.url>https://aoindustries.com/ao-credit-cards/usaepay/</documented.url>

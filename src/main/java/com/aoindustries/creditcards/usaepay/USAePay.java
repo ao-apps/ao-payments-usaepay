@@ -1,6 +1,6 @@
 /*
  * ao-credit-cards-usaepay - Provider for the USAePay system.
- * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2015, 2016, 2019  AO Industries, Inc.
+ * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2015, 2016, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -172,7 +172,7 @@ public class USAePay implements MerchantServicesProvider {
 				uc.setUseCaches(false);
 
 				uc.setRequestMethod("POST");
-				uc.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+				uc.setRequestProperty("content-type","application/x-www-form-urlencoded");
 				uc.setDoOutput(true);
 				uc.setDoInput(true);
 

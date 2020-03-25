@@ -1119,19 +1119,19 @@ public class USAePay implements MerchantServicesProvider {
 	@Override
 	@SuppressWarnings("deprecation")
 	public CaptureResult capture(AuthorizationResult authorizationResult) {
-		throw new com.aoindustries.lang.NotImplementedException();
+		throw new com.aoindustries.exception.NotImplementedException();
 	}
 
 	@Override
 	@SuppressWarnings("deprecation")
 	public VoidResult voidTransaction(Transaction transaction) {
-		throw new com.aoindustries.lang.NotImplementedException();
+		throw new com.aoindustries.exception.NotImplementedException();
 	}
 
 	@Override
 	@SuppressWarnings("deprecation")
 	public CreditResult credit(TransactionRequest transactionRequest, CreditCard creditCard) {
-		throw new com.aoindustries.lang.NotImplementedException();
+		throw new com.aoindustries.exception.NotImplementedException();
 	}
 
 	@Override

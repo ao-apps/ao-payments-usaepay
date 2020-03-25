@@ -57,6 +57,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.StringTokenizer;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Provider for the USAePay system<br>
@@ -1117,21 +1118,18 @@ public class USAePay implements MerchantServicesProvider {
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public CaptureResult capture(AuthorizationResult authorizationResult) {
-		throw new com.aoindustries.exception.NotImplementedException();
+		throw new NotImplementedException("TODO");
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public VoidResult voidTransaction(Transaction transaction) {
-		throw new com.aoindustries.exception.NotImplementedException();
+		throw new NotImplementedException("TODO");
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public CreditResult credit(TransactionRequest transactionRequest, CreditCard creditCard) {
-		throw new com.aoindustries.exception.NotImplementedException();
+		throw new NotImplementedException("TODO");
 	}
 
 	@Override

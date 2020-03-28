@@ -29,7 +29,7 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 		<relativePath>../../../ao-oss-parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-usaepay-book</artifactId><version>1.1.2</version>
+	<groupId>com.aoindustries</groupId><artifactId>ao-credit-cards-usaepay-book</artifactId><version>1.1.2-POST-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<properties>
@@ -51,7 +51,7 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 		<connection>scm:git:git://github.com/aoindustries/ao-credit-cards-usaepay.git</connection>
 		<developerConnection>scm:git:git@github.com:aoindustries/ao-credit-cards-usaepay.git</developerConnection>
 		<url>https://github.com/aoindustries/ao-credit-cards-usaepay</url>
-		<tag>ao-credit-cards-usaepay-book-1.1.2</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>

@@ -54,6 +54,11 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 		<tag>HEAD</tag>
 	</scm>
 
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/aoindustries/ao-credit-cards-usaepay/issues</url>
+	</issueManagement>
+
 	<profiles>
 		<profile>
 			<id>release</id>

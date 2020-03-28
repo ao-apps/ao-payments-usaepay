@@ -38,7 +38,7 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 		<shortTitle>USAePay</shortTitle>
 		<description.html><![CDATA[Provider for the <a target="_top" href="https://usaepay.info/">USAePay</a>.]]></description.html>
 		<!-- Dependencies -->
-		<org.apache.commons.commons-lang3.version>3.9</org.apache.commons.commons-lang3.version>
+		<org.apache.commons.commons-lang3.version>3.10</org.apache.commons.commons-lang3.version>
 	</properties>
 
 	<name>AO Credit Cards USAePay</name>

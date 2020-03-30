@@ -47,7 +47,6 @@ along with ao-credit-cards-usaepay.  If not, see <http://www.gnu.org/licenses />
 	<inceptionYear>2008</inceptionYear>
 
 	<scm>
-		<!-- Can't inherit due to multi-module -->
 		<connection>scm:git:git://github.com/aoindustries/ao-credit-cards-usaepay.git</connection>
 		<developerConnection>scm:git:git@github.com:aoindustries/ao-credit-cards-usaepay.git</developerConnection>
 		<url>https://github.com/aoindustries/ao-credit-cards-usaepay</url>

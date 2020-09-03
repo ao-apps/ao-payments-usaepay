@@ -89,8 +89,9 @@ public class USAePayTestTODO extends TestCase {
 				return getName().hashCode();
 			}
 			@Override
-			public boolean equals(Object O) {
-				return super.equals(O);
+			@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+			public boolean equals(Object obj) {
+				return super.equals(obj);
 			}
 			@Override
 			public String toString() {

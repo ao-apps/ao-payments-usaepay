@@ -153,12 +153,12 @@ public class USAePay implements MerchantServicesProvider {
 	/**
 	 * Submits a transaction (a Map of name/value pairs), and returns the result as a Map of name/value pairs.
 	 */
-	protected Map<String,String> submitTransaction(Map<String,String> request, boolean testMode) throws ErrorCodeException {
+	protected Map<String, String> submitTransaction(Map<String, String> request, boolean testMode) throws ErrorCodeException {
 		try {
 			// Build the request string before allocating the connection to the server
 			if(DEBUG_REQUEST) System.out.println("Request:");
 			StringBuilder parameterSB = new StringBuilder();
-			for(Map.Entry<String,String> entry : request.entrySet()) {
+			for(Map.Entry<String, String> entry : request.entrySet()) {
 				String name = entry.getKey();
 				String value = entry.getValue();
 				if(value==null) value="";
@@ -194,7 +194,7 @@ public class USAePay implements MerchantServicesProvider {
 
 			// Split on = and & and decode name/value pairs
 			if(DEBUG_RESPONSE) System.out.println("Response:");
-			Map<String,String> response = new HashMap<>();
+			Map<String, String> response = new HashMap<>();
 			StringTokenizer st = new StringTokenizer(responseString, "&");
 			while(st.hasMoreTokens()) {
 				String token = st.nextToken();
@@ -219,7 +219,7 @@ public class USAePay implements MerchantServicesProvider {
 	 * Adds a parameter to the request after checking its length.
 	 * If longer, throws an ErrorCodeException with the provided <code>TransactionResult.ErrorCode</code>, otherwise appends the value.
 	 */
-	protected static void addMaxLengthParameter(Map<String,String> request, String name, String value, int maxLength, TransactionResult.ErrorCode errorCode) throws ErrorCodeException {
+	protected static void addMaxLengthParameter(Map<String, String> request, String name, String value, int maxLength, TransactionResult.ErrorCode errorCode) throws ErrorCodeException {
 		if(value.length()>maxLength) {
 			throw new ErrorCodeException(
 				errorCode,
@@ -234,7 +234,7 @@ public class USAePay implements MerchantServicesProvider {
 	/**
 	 * Adds a parameter to the request.  If the value is too long, the first <code>maxLength</code> characters are used and the rest are discarded.
 	 */
-	protected static void addTrimmedParameter(Map<String,String> request, String name, String value, int maxLength) {
+	protected static void addTrimmedParameter(Map<String, String> request, String name, String value, int maxLength) {
 		if(value!=null && value.length()>maxLength) value=value.substring(0, maxLength);
 		request.put(name, value);
 	}
@@ -316,13 +316,13 @@ public class USAePay implements MerchantServicesProvider {
 	/**
 	 * Unmodifiable mapping of error codes.
 	 */
-	private static final Map<String,ConvertedError> convertedErrors;
+	private static final Map<String, ConvertedError> convertedErrors;
 
 	/*
 	 * http://wiki.usaepay.com/developer/errorcodes?s[]=10118
 	 */
 	static {
-		Map<String,ConvertedError> initErrors = new HashMap<>();
+		Map<String, ConvertedError> initErrors = new HashMap<>();
 		// 00001 	Password/Username Incorrect. 	Sent by login screen when the username and/or the password are incorrect.
 		initErrors.put("00001", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INSUFFICIENT_PERMISSIONS));
 		// 00002 	Access to page denied. 	The user has attempted to access a page they don't have permission to access.
@@ -568,7 +568,7 @@ public class USAePay implements MerchantServicesProvider {
 	private AuthorizationResult authorizeOrSale(TransactionRequest transactionRequest, CreditCard creditCard, String command) {
 		// Build the map of request parameters, catching ErrorCodeException after this step
 		// because any of these errors will all be considered as TransactionResult.CommunicationResult.LOCAL_ERROR
-		Map<String,String> request = new HashMap<>();
+		Map<String, String> request = new HashMap<>();
 		try {
 			// Build the request parameters
 			request.put("UMcommand", command);
@@ -784,7 +784,7 @@ public class USAePay implements MerchantServicesProvider {
 		}
 
 		// Now try to process, considering as a GATEWAY_ERROR for any ErrorCodeExceptions.
-		Map<String,String> results;
+		Map<String, String> results;
 		try {
 			// Now that the local request has been created successfully, contact the USAePay API.
 			results = submitTransaction(request, transactionRequest.getTestMode());
@@ -1179,7 +1179,7 @@ public class USAePay implements MerchantServicesProvider {
 	}
 
 	@Override
-	public Map<String, TokenizedCreditCard> getTokenizedCreditCards(Map<String,CreditCard> persistedCards, PrintWriter verboseOut, PrintWriter infoOut, PrintWriter warningOut) throws UnsupportedOperationException {
+	public Map<String, TokenizedCreditCard> getTokenizedCreditCards(Map<String, CreditCard> persistedCards, PrintWriter verboseOut, PrintWriter infoOut, PrintWriter warningOut) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
 }

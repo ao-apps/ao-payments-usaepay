@@ -41,7 +41,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
@@ -133,21 +132,13 @@ public class USAePay implements MerchantServicesProvider {
 	}
 
 	private static String encode(String value) {
-		try {
-			return URLEncoder.encode(value, ENCODING.name());
-			//return value.replace('&', '-').replace('=', '-');
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + ENCODING + ") should always exist", e);
-		}
+		return URLEncoder.encode(value, ENCODING);
+		//return value.replace('&', '-').replace('=', '-');
 	}
 
 	private static String decode(String value) {
-		try {
-			return URLDecoder.decode(value, ENCODING.name());
-			//return value;
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + ENCODING + ") should always exist", e);
-		}
+		return URLDecoder.decode(value, ENCODING);
+		//return value;
 	}
 
 	/**

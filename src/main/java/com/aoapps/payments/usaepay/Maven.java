@@ -20,9 +20,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-payments-usaepay.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoindustries.creditcards.usaepay;
+package com.aoapps.payments.usaepay;
 
-import com.aoindustries.util.PropertiesUtils;
+import com.aoapps.lang.util.PropertiesUtils;
 import java.io.IOException;
 import java.util.Properties;
 

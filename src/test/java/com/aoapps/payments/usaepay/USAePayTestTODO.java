@@ -20,16 +20,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-payments-usaepay.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoindustries.creditcards.usaepay;
+package com.aoapps.payments.usaepay;
 
-import com.aoindustries.creditcards.AuthorizationResult;
-import com.aoindustries.creditcards.CreditCard;
-import com.aoindustries.creditcards.CreditCardProcessor;
-import com.aoindustries.creditcards.PropertiesPersistenceMechanism;
-import com.aoindustries.creditcards.Transaction;
-import com.aoindustries.creditcards.TransactionRequest;
-import com.aoindustries.creditcards.TransactionResult;
-import com.aoindustries.util.PropertiesUtils;
+import com.aoapps.lang.util.PropertiesUtils;
+import com.aoapps.payments.AuthorizationResult;
+import com.aoapps.payments.CreditCard;
+import com.aoapps.payments.CreditCardProcessor;
+import com.aoapps.payments.PropertiesPersistenceMechanism;
+import com.aoapps.payments.Transaction;
+import com.aoapps.payments.TransactionRequest;
+import com.aoapps.payments.TransactionResult;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.InetAddress;

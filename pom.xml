@@ -86,6 +86,11 @@ along with ao-payments-usaepay.  If not, see <http://www.gnu.org/licenses />.
 		<url>https://github.com/aoindustries/ao-payments-usaepay/issues</url>
 	</issueManagement>
 
+	<ciManagement>
+		<system>GitHub Actions</system>
+		<url>https://github.com/aoindustries/ao-payments-usaepay/actions</url>
+	</ciManagement>
+
 	<repositories>
 		<!-- Repository required here, too, so can find parent -->
 		<repository>

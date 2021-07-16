@@ -9,6 +9,12 @@
 
 [![Build](https://github.com/aoindustries/ao-payments-usaepay/workflows/Build/badge.svg?branch=master)](https://github.com/aoindustries/ao-payments-usaepay/actions?query=workflow%3ABuild)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.aoapps/ao-payments-usaepay/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.aoapps/ao-payments-usaepay)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-payments-usaepay&metric=alert_status)](https://sonarcloud.io/dashboard?branch=master&id=com.aoapps%3Aao-payments-usaepay)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-payments-usaepay&metric=ncloc)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-payments-usaepay&metric=ncloc)  
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-payments-usaepay&metric=reliability_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-payments-usaepay&metric=Reliability)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-payments-usaepay&metric=security_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-payments-usaepay&metric=Security)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-payments-usaepay&metric=sqale_rating)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-payments-usaepay&metric=Maintainability)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?branch=master&project=com.aoapps%3Aao-payments-usaepay&metric=coverage)](https://sonarcloud.io/component_measures?branch=master&id=com.aoapps%3Aao-payments-usaepay&metric=Coverage)
 
 Provider for the [USAePay](https://usaepay.info/) system.
 

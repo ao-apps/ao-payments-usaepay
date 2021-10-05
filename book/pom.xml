@@ -71,20 +71,20 @@ along with ao-payments-usaepay.  If not, see <http://www.gnu.org/licenses />.
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://github.com/aoindustries/ao-payments-usaepay.git</connection>
-		<developerConnection>scm:git:git@github.com:aoindustries/ao-payments-usaepay.git</developerConnection>
-		<url>https://github.com/aoindustries/ao-payments-usaepay</url>
+		<connection>scm:git:git://github.com/ao-apps/ao-payments-usaepay.git</connection>
+		<developerConnection>scm:git:git@github.com:ao-apps/ao-payments-usaepay.git</developerConnection>
+		<url>https://github.com/ao-apps/ao-payments-usaepay</url>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/aoindustries/ao-payments-usaepay/issues</url>
+		<url>https://github.com/ao-apps/ao-payments-usaepay/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>GitHub Actions</system>
-		<url>https://github.com/aoindustries/ao-payments-usaepay/actions</url>
+		<url>https://github.com/ao-apps/ao-payments-usaepay/actions</url>
 	</ciManagement>
 
 	<repositories>

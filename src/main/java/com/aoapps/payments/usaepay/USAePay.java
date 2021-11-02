@@ -55,7 +55,6 @@ import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.StringTokenizer;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -245,18 +244,10 @@ public class USAePay implements MerchantServicesProvider {
 		}
 	}
 
-	private static final Object randomLock = new Object();
-	private static Random random;
-
 	/**
-	 * Gets a secure random instance.
+	 * Note: This is not a {@linkplain SecureRandom#getInstanceStrong() strong instance} to avoid blocking.
 	 */
-	private static Random getRandom() throws NoSuchAlgorithmException {
-		synchronized(randomLock) {
-			if(random==null) random = new SecureRandom();
-			return random;
-		}
-	}
+	private static final SecureRandom secureRandom = new SecureRandom();
 
 	/**
 	 * Gets a complete hexadecimal string where any leading zeros are not removed.
@@ -729,11 +720,11 @@ public class USAePay implements MerchantServicesProvider {
 					{
 						// It didn't like Hex seed
 						//byte[] randomBytes = new byte[64];
-						//getRandom().nextBytes(randomBytes);
+						//secureRandom.nextBytes(randomBytes);
 						//seed = getFullHexString(randomBytes);
-						long randomLong = getRandom().nextLong();
-						if(randomLong==Long.MIN_VALUE) randomLong = 0;
-						if(randomLong<0) randomLong = -randomLong;
+						long randomLong = secureRandom.nextLong();
+						if(randomLong == Long.MIN_VALUE) randomLong = 0;
+						if(randomLong < 0) randomLong = -randomLong;
 						seed = Long.toString(randomLong);
 					}
 					// Generate the MD5 hash

@@ -80,8 +80,8 @@ public class USAePay implements MerchantServicesProvider {
   private static final boolean DEBUG_RESPONSE = false;
 
   private static final String SOFTWARE_VERSION =
-    Maven.properties.getProperty("project.artifactId")
-    + '-' + Maven.properties.getProperty("project.version");
+      Maven.properties.getProperty("project.artifactId")
+          + '-' + Maven.properties.getProperty("project.version");
 
   private static final Charset ENCODING = StandardCharsets.UTF_8;
 
@@ -155,12 +155,12 @@ public class USAePay implements MerchantServicesProvider {
         String name = entry.getKey();
         String value = entry.getValue();
         if (value == null) {
-          value="";
+          value = "";
         }
         if (DEBUG_REQUEST) {
-          System.out.println("    "+name+"="+value);
+          System.out.println("    " + name + "=" + value);
         }
-        if (parameterSB.length()>0) {
+        if (parameterSB.length() > 0) {
           parameterSB.append('&');
         }
         parameterSB.append(name).append('=').append(encode(value));
@@ -168,7 +168,7 @@ public class USAePay implements MerchantServicesProvider {
 
       String responseString;
       URL url = new URL(postUrl);
-      HttpURLConnection uc = (HttpURLConnection)url.openConnection();
+      HttpURLConnection uc = (HttpURLConnection) url.openConnection();
       try {
         uc.setUseCaches(false);
 
@@ -201,21 +201,21 @@ public class USAePay implements MerchantServicesProvider {
         String token = st.nextToken();
         int equalPos = token.indexOf('=');
         if (equalPos == -1) {
-          throw new IOException("No equal sign (=) found in token: "+token);
+          throw new IOException("No equal sign (=) found in token: " + token);
         }
         String name = token.substring(0, equalPos);
-        String value = decode(token.substring(equalPos+1));
+        String value = decode(token.substring(equalPos + 1));
         if (DEBUG_RESPONSE) {
-          System.out.println("    "+name+"="+value);
+          System.out.println("    " + name + "=" + value);
         }
         response.put(name, value);
       }
       return response;
     } catch (IOException err) {
       throw new ErrorCodeException(
-        err,
-        TransactionResult.ErrorCode.ERROR_TRY_AGAIN,
-        "TransactionResult.CommunicationResult.IO_ERROR"
+          err,
+          TransactionResult.ErrorCode.ERROR_TRY_AGAIN,
+          "TransactionResult.CommunicationResult.IO_ERROR"
       );
     }
   }
@@ -225,12 +225,12 @@ public class USAePay implements MerchantServicesProvider {
    * If longer, throws an ErrorCodeException with the provided <code>TransactionResult.ErrorCode</code>, otherwise appends the value.
    */
   protected static void addMaxLengthParameter(Map<String, String> request, String name, String value, int maxLength, TransactionResult.ErrorCode errorCode) throws ErrorCodeException {
-    if (value.length()>maxLength) {
+    if (value.length() > maxLength) {
       throw new ErrorCodeException(
-        errorCode,
-        "TransactionRequest.field.tooLong",
-        name,
-        maxLength
+          errorCode,
+          "TransactionRequest.field.tooLong",
+          name,
+          maxLength
       );
     }
     request.put(name, value);
@@ -240,8 +240,8 @@ public class USAePay implements MerchantServicesProvider {
    * Adds a parameter to the request.  If the value is too long, the first <code>maxLength</code> characters are used and the rest are discarded.
    */
   protected static void addTrimmedParameter(Map<String, String> request, String name, String value, int maxLength) {
-    if (value != null && value.length()>maxLength) {
-      value=value.substring(0, maxLength);
+    if (value != null && value.length() > maxLength) {
+      value = value.substring(0, maxLength);
     }
     request.put(name, value);
   }
@@ -256,12 +256,12 @@ public class USAePay implements MerchantServicesProvider {
       }
       return line2.trim();
     } else {
-      line1=line1.trim();
+      line1 = line1.trim();
       if (line2 == null) {
         return line1;
       }
-      line2=line2.trim();
-      return (line1+" "+line2).trim();
+      line2 = line2.trim();
+      return (line1 + " " + line2).trim();
     }
   }
 
@@ -275,10 +275,10 @@ public class USAePay implements MerchantServicesProvider {
    * Thus, the length of the string will be twice the length of the byte[] parameter.
    */
   private static String getFullHexString(byte[] bytes) {
-    StringBuilder sb = new StringBuilder(bytes.length*2);
-    for (int c=0;c<bytes.length;c++) {
+    StringBuilder sb = new StringBuilder(bytes.length * 2);
+    for (int c = 0; c < bytes.length; c++) {
       byte nextByte = bytes[c];
-      sb.append(Integer.toHexString((nextByte>>>4) & 0xf));
+      sb.append(Integer.toHexString((nextByte >>> 4) & 0xf));
       sb.append(Integer.toHexString(nextByte & 0xf));
     }
     return sb.toString();
@@ -297,8 +297,8 @@ public class USAePay implements MerchantServicesProvider {
     private final AuthorizationResult.DeclineReason declineReason;
 
     private ConvertedError(
-      TransactionResult.CommunicationResult communicationResult,
-      TransactionResult.ErrorCode errorCode
+        TransactionResult.CommunicationResult communicationResult,
+        TransactionResult.ErrorCode errorCode
     ) {
       this.communicationResult = communicationResult;
       this.errorCode = errorCode;
@@ -306,9 +306,9 @@ public class USAePay implements MerchantServicesProvider {
     }
 
     private ConvertedError(
-      TransactionResult.CommunicationResult communicationResult,
-      TransactionResult.ErrorCode errorCode,
-      AuthorizationResult.DeclineReason declineReason
+        TransactionResult.CommunicationResult communicationResult,
+        TransactionResult.ErrorCode errorCode,
+        AuthorizationResult.DeclineReason declineReason
     ) {
       this.communicationResult = communicationResult;
       this.errorCode = errorCode;
@@ -633,21 +633,21 @@ public class USAePay implements MerchantServicesProvider {
 
       // customer ID
       String customerId = creditCard.getCustomerId();
-      if (customerId != null && customerId.length()>0) {
+      if (customerId != null && customerId.length() > 0) {
         request.put("UMcustid", customerId);
       }
 
       // invoice_number/order_number combined to a single value
       String invoiceNumber = transactionRequest.getInvoiceNumber();
       String orderNumber = transactionRequest.getOrderNumber();
-      if (orderNumber != null && orderNumber.length()>0) {
-        if (invoiceNumber != null && invoiceNumber.length()>0) {
-          invoiceNumber = invoiceNumber+"/"+orderNumber;
+      if (orderNumber != null && orderNumber.length() > 0) {
+        if (invoiceNumber != null && invoiceNumber.length() > 0) {
+          invoiceNumber = invoiceNumber + "/" + orderNumber;
         } else {
           invoiceNumber = orderNumber;
         }
       }
-      if (invoiceNumber != null && invoiceNumber.length()>0) {
+      if (invoiceNumber != null && invoiceNumber.length() > 0) {
         if (invoiceNumber.length() <= 10) {
           request.put("UMinvoice", invoiceNumber);
         } else {
@@ -657,31 +657,31 @@ public class USAePay implements MerchantServicesProvider {
 
       // purchase order number
       String ponum = transactionRequest.getPurchaseOrderNumber();
-      if (ponum != null && ponum.length()>0) {
+      if (ponum != null && ponum.length() > 0) {
         request.put("UMponum", ponum);
       }
 
       // description
       String description = transactionRequest.getDescription();
-      if (description != null && description.length()>0) {
+      if (description != null && description.length() > 0) {
         request.put("UMdescription", description);
       }
 
       // comments
       String comments = creditCard.getComments();
-      if (comments != null && comments.length()>0) {
+      if (comments != null && comments.length() > 0) {
         request.put("UMcomments", comments);
       }
 
       // cvv2
       String cvv2 = creditCard.getCardCode();
-      if (cvv2 != null && cvv2.length()>0) {
+      if (cvv2 != null && cvv2.length() > 0) {
         request.put("UMcvv2", cvv2);
       }
 
       // email
       String email = creditCard.getEmail();
-      if (email != null && email.length()>0) {
+      if (email != null && email.length() > 0) {
         request.put("UMcustemail", email);
       }
 
@@ -690,19 +690,19 @@ public class USAePay implements MerchantServicesProvider {
 
       // street address
       String street = getStreetAddress(creditCard.getStreetAddress1(), creditCard.getStreetAddress2());
-      if (street.length()>0) {
+      if (street.length() > 0) {
         request.put("UMstreet", street);
       }
 
       // ZIP
       String zip = creditCard.getPostalCode();
-      if (zip != null && zip.length()>0) {
+      if (zip != null && zip.length() > 0) {
         request.put("UMzip", zip);
       }
 
       // IP address
       String customerIp = transactionRequest.getCustomerIp();
-      if (customerIp != null && customerIp.length()>0) {
+      if (customerIp != null && customerIp.length() > 0) {
         request.put("UMip", customerIp);
       }
 
@@ -716,95 +716,95 @@ public class USAePay implements MerchantServicesProvider {
 
       // Billing Address fields
       String billfname = creditCard.getFirstName();
-      if (billfname != null && billfname.length()>0) {
+      if (billfname != null && billfname.length() > 0) {
         request.put("UMbillfname", billfname);
       }
       String billlname = creditCard.getLastName();
-      if (billlname != null && billlname.length()>0) {
+      if (billlname != null && billlname.length() > 0) {
         request.put("UMbilllname", billlname);
       }
       String billcompany = creditCard.getCompanyName();
-      if (billcompany != null && billcompany.length()>0) {
+      if (billcompany != null && billcompany.length() > 0) {
         request.put("UMbillcompany", billcompany);
       }
       String billstreet = creditCard.getStreetAddress1();
-      if (billstreet != null && billstreet.length()>0) {
+      if (billstreet != null && billstreet.length() > 0) {
         request.put("UMbillstreet", billstreet);
       }
       String billstreet2 = creditCard.getStreetAddress2();
-      if (billstreet2 != null && billstreet2.length()>0) {
+      if (billstreet2 != null && billstreet2.length() > 0) {
         request.put("UMbillstreet2", billstreet2);
       }
       String billcity = creditCard.getCity();
-      if (billcity != null && billcity.length()>0) {
+      if (billcity != null && billcity.length() > 0) {
         request.put("UMbillcity", billcity);
       }
       String billstate = creditCard.getState();
-      if (billstate != null && billstate.length()>0) {
+      if (billstate != null && billstate.length() > 0) {
         request.put("UMbillstate", billstate);
       }
       String billzip = creditCard.getPostalCode();
-      if (billzip != null && billzip.length()>0) {
+      if (billzip != null && billzip.length() > 0) {
         request.put("UMbillzip", billzip);
       }
       String billcountry = creditCard.getCountryCode();
-      if (billcountry != null && billcountry.length()>0) {
+      if (billcountry != null && billcountry.length() > 0) {
         request.put("UMbillcountry", billcountry);
       }
       String billphone = creditCard.getPhone();
-      if (billphone != null && billphone.length()>0) {
+      if (billphone != null && billphone.length() > 0) {
         request.put("UMbillphone", billphone);
       }
 
       // Shipping Address fields
       String shipfname = transactionRequest.getShippingFirstName();
-      if (shipfname != null && shipfname.length()>0) {
+      if (shipfname != null && shipfname.length() > 0) {
         request.put("UMshipfname", shipfname);
       }
       String shiplname = transactionRequest.getShippingLastName();
-      if (shiplname != null && shiplname.length()>0) {
+      if (shiplname != null && shiplname.length() > 0) {
         request.put("UMshiplname", shiplname);
       }
       String shipcompany = transactionRequest.getShippingCompanyName();
-      if (shipcompany != null && shipcompany.length()>0) {
+      if (shipcompany != null && shipcompany.length() > 0) {
         request.put("UMshipcompany", shipcompany);
       }
       String shipstreet = transactionRequest.getShippingStreetAddress1();
-      if (shipstreet != null && shipstreet.length()>0) {
+      if (shipstreet != null && shipstreet.length() > 0) {
         request.put("UMshipstreet", shipstreet);
       }
       String shipstreet2 = transactionRequest.getShippingStreetAddress2();
-      if (shipstreet2 != null && shipstreet2.length()>0) {
+      if (shipstreet2 != null && shipstreet2.length() > 0) {
         request.put("UMshipstreet2", shipstreet2);
       }
       String shipcity = transactionRequest.getShippingCity();
-      if (shipcity != null && shipcity.length()>0) {
+      if (shipcity != null && shipcity.length() > 0) {
         request.put("UMshipcity", shipcity);
       }
       String shipstate = transactionRequest.getShippingState();
-      if (shipstate != null && shipstate.length()>0) {
+      if (shipstate != null && shipstate.length() > 0) {
         request.put("UMshipstate", shipstate);
       }
       String shipzip = transactionRequest.getShippingPostalCode();
-      if (shipzip != null && shipzip.length()>0) {
+      if (shipzip != null && shipzip.length() > 0) {
         request.put("UMshipzip", shipzip);
       }
       String shipcountry = transactionRequest.getShippingCountryCode();
-      if (shipcountry != null && shipcountry.length()>0) {
+      if (shipcountry != null && shipcountry.length() > 0) {
         request.put("UMshipcountry", shipcountry);
       }
       // Could add shipping phone number to API when needed
 
       // Remaining Billing and Shipping Address fields
-      if (email != null && email.length()>0) {
+      if (email != null && email.length() > 0) {
         request.put("UMemail", email);
       }
       String fax = creditCard.getFax();
-      if (fax != null && fax.length()>0) {
+      if (fax != null && fax.length() > 0) {
         request.put("UMfax", fax);
       }
 
-      if (pin != null && pin.length()>0) {
+      if (pin != null && pin.length() > 0) {
         // Calculate the hash as described at
         // http://wiki.usaepay.com/developer/transactionapi#source_pin_code
         try {
@@ -827,19 +827,19 @@ public class USAePay implements MerchantServicesProvider {
           // Generate the MD5 hash
           StringBuilder hashData = new StringBuilder();
           if (command.indexOf(':') != -1) {
-            throw new ErrorCodeException(new IllegalArgumentException("command may not contain a colon (:): "+command), TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+            throw new ErrorCodeException(new IllegalArgumentException("command may not contain a colon (:): " + command), TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
           }
           if (pin.indexOf(':') != -1) {
-            throw new ErrorCodeException(new IllegalArgumentException("pin may not contain a colon (:): "+pin), TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+            throw new ErrorCodeException(new IllegalArgumentException("pin may not contain a colon (:): " + pin), TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
           }
           hashData.append(command).append(':').append(pin).append(':').append(amount.toString()).append(':');
-          if (invoiceNumber != null && invoiceNumber.length()>0) {
+          if (invoiceNumber != null && invoiceNumber.length() > 0) {
             hashData.append(invoiceNumber);
           }
           hashData.append(':').append(seed);
           String md5 = createMd5Hash(hashData.toString());
           // Add the hash
-          String hash = "m/"+seed+"/"+md5+"/y";
+          String hash = "m/" + seed + "/" + md5 + "/y";
           request.put("UMhash", hash);
         } catch (NoSuchAlgorithmException err) {
           throw new ErrorCodeException(err, TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
@@ -847,24 +847,24 @@ public class USAePay implements MerchantServicesProvider {
       }
     } catch (ErrorCodeException err) {
       return new AuthorizationResult(
-        getProviderId(),
-        TransactionResult.CommunicationResult.LOCAL_ERROR,
-        err.getErrorCode().name(),
-        err.getErrorCode(),
-        err.getMessage(),
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
+          getProviderId(),
+          TransactionResult.CommunicationResult.LOCAL_ERROR,
+          err.getErrorCode().name(),
+          err.getErrorCode(),
+          err.getMessage(),
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
       );
     }
 
@@ -875,82 +875,6 @@ public class USAePay implements MerchantServicesProvider {
       results = submitTransaction(request, transactionRequest.getTestMode());
     } catch (ErrorCodeException err) {
       return new AuthorizationResult(
-        getProviderId(),
-        TransactionResult.CommunicationResult.GATEWAY_ERROR,
-        err.getErrorCode().name(),
-        err.getErrorCode(),
-        err.getMessage(),
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      );
-    }
-
-    String status = results.get("UMstatus");
-    String authCode = results.get("UMauthCode");
-    String refNum = results.get("UMrefNum");
-    String avsResultCode = results.get("UMavsResultCode");
-    String cvv2ResultCode = results.get("UMcvv2ResultCode");
-    String result = results.get("UMresult");
-    String error = results.get("UMerror");
-    String errorcode = results.get("UMerrorcode");
-    String isDuplicate = results.get("UMisDuplicate");
-    String responseHash = results.get("UMresponseHash");
-
-    if (pin != null && pin.length()>0) {
-      try {
-        // Verify the response hash as described at
-        // http://wiki.usaepay.com/developer/transactionapi#source_pin_code
-        if (responseHash == null || responseHash.length() == 0) {
-          System.err.println("responseHash is null or empty");
-          throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
-        }
-        try {
-          // Parse the hash type
-          int slashPos1 = responseHash.indexOf('/');
-          if (slashPos1 == -1) {
-            System.err.println("Unable to find first slash: "+responseHash);
-            throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
-          }
-          String hashType = responseHash.substring(0, slashPos1);
-          if (!hashType.equals("m")) {
-            System.err.println("Unexpected hashType: "+hashType);
-            throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
-          }
-
-          // Parse seed
-          int slashPos2 = responseHash.indexOf('/', slashPos1+1);
-          if (slashPos2 == -1) {
-            System.err.println("Unable to find second slash: "+responseHash);
-            throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
-          }
-          String seed = responseHash.substring(slashPos1+1, slashPos2);
-
-          // The rest is the MD5
-          String responseMd5 = responseHash.substring(slashPos2+1);
-
-          // Generate the MD5 hash
-          String hashData = pin+":"+result+":"+refNum+":"+seed;
-          String expectedMd5 = createMd5Hash(hashData);
-          if (!expectedMd5.equalsIgnoreCase(responseMd5)) {
-            System.err.println("Response MD5 != Expected MD5: "+responseMd5+" != "+expectedMd5);
-            throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
-          }
-        } catch (NoSuchAlgorithmException err) {
-          throw new ErrorCodeException(err, TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
-        }
-      } catch (ErrorCodeException err) {
-        return new AuthorizationResult(
           getProviderId(),
           TransactionResult.CommunicationResult.GATEWAY_ERROR,
           err.getErrorCode().name(),
@@ -969,6 +893,82 @@ public class USAePay implements MerchantServicesProvider {
           null,
           null,
           null
+      );
+    }
+
+    String status = results.get("UMstatus");
+    String authCode = results.get("UMauthCode");
+    String refNum = results.get("UMrefNum");
+    String avsResultCode = results.get("UMavsResultCode");
+    String cvv2ResultCode = results.get("UMcvv2ResultCode");
+    String result = results.get("UMresult");
+    String error = results.get("UMerror");
+    String errorcode = results.get("UMerrorcode");
+    String isDuplicate = results.get("UMisDuplicate");
+    String responseHash = results.get("UMresponseHash");
+
+    if (pin != null && pin.length() > 0) {
+      try {
+        // Verify the response hash as described at
+        // http://wiki.usaepay.com/developer/transactionapi#source_pin_code
+        if (responseHash == null || responseHash.length() == 0) {
+          System.err.println("responseHash is null or empty");
+          throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+        }
+        try {
+          // Parse the hash type
+          int slashPos1 = responseHash.indexOf('/');
+          if (slashPos1 == -1) {
+            System.err.println("Unable to find first slash: " + responseHash);
+            throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+          }
+          String hashType = responseHash.substring(0, slashPos1);
+          if (!hashType.equals("m")) {
+            System.err.println("Unexpected hashType: " + hashType);
+            throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+          }
+
+          // Parse seed
+          int slashPos2 = responseHash.indexOf('/', slashPos1 + 1);
+          if (slashPos2 == -1) {
+            System.err.println("Unable to find second slash: " + responseHash);
+            throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+          }
+          String seed = responseHash.substring(slashPos1 + 1, slashPos2);
+
+          // The rest is the MD5
+          String responseMd5 = responseHash.substring(slashPos2 + 1);
+
+          // Generate the MD5 hash
+          String hashData = pin + ":" + result + ":" + refNum + ":" + seed;
+          String expectedMd5 = createMd5Hash(hashData);
+          if (!expectedMd5.equalsIgnoreCase(responseMd5)) {
+            System.err.println("Response MD5 != Expected MD5: " + responseMd5 + " != " + expectedMd5);
+            throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+          }
+        } catch (NoSuchAlgorithmException err) {
+          throw new ErrorCodeException(err, TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+        }
+      } catch (ErrorCodeException err) {
+        return new AuthorizationResult(
+            getProviderId(),
+            TransactionResult.CommunicationResult.GATEWAY_ERROR,
+            err.getErrorCode().name(),
+            err.getErrorCode(),
+            err.getMessage(),
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
         );
       }
     }
@@ -989,131 +989,131 @@ public class USAePay implements MerchantServicesProvider {
       cvvResult = AuthorizationResult.CvvResult.NOT_PROCESSED;
     } else {
       String cvv2 = creditCard.getCardCode();
-      if (cvv2 != null && cvv2.length()>0) {
+      if (cvv2 != null && cvv2.length() > 0) {
         cvvResult = AuthorizationResult.CvvResult.NOT_PROCESSED;
       } else {
         cvvResult = AuthorizationResult.CvvResult.CVV2_NOT_PROVIDED_BY_MERCHANT;
       }
     }
     if (DEBUG_RESPONSE) {
-      System.out.println("    cvvResult="+cvvResult);
+      System.out.println("    cvvResult=" + cvvResult);
     }
 
     // Convert to AvsResult
     AuthorizationResult.AvsResult avsResult;
     if (avsResultCode == null) {
-      avsResult=AuthorizationResult.AvsResult.UNAVAILABLE;
+      avsResult = AuthorizationResult.AvsResult.UNAVAILABLE;
     } else {
       if (
-        "YYY".equals(avsResultCode)
-        || "Y".equals(avsResultCode)
-        || "YYA".equals(avsResultCode)
-        || "YYD".equals(avsResultCode)
+          "YYY".equals(avsResultCode)
+              || "Y".equals(avsResultCode)
+              || "YYA".equals(avsResultCode)
+              || "YYD".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.ADDRESS_Y_ZIP_5;
+        avsResult = AuthorizationResult.AvsResult.ADDRESS_Y_ZIP_5;
       } else if (
-        "NYZ".equals(avsResultCode)
-        || "Z".equals(avsResultCode)
+          "NYZ".equals(avsResultCode)
+              || "Z".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.ADDRESS_N_ZIP_5;
+        avsResult = AuthorizationResult.AvsResult.ADDRESS_N_ZIP_5;
       } else if (
-        "YNA".equals(avsResultCode)
-        || "A".equals(avsResultCode)
-        || "YNY".equals(avsResultCode)
+          "YNA".equals(avsResultCode)
+              || "A".equals(avsResultCode)
+              || "YNY".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.ADDRESS_Y_ZIP_N;
+        avsResult = AuthorizationResult.AvsResult.ADDRESS_Y_ZIP_N;
       } else if (
-        "NNN".equals(avsResultCode)
-        || "N".equals(avsResultCode)
-        || "NN".equals(avsResultCode)
+          "NNN".equals(avsResultCode)
+              || "N".equals(avsResultCode)
+              || "NN".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.ADDRESS_N_ZIP_N;
+        avsResult = AuthorizationResult.AvsResult.ADDRESS_N_ZIP_N;
       } else if (
-        "YYX".equals(avsResultCode)
-        || "X".equals(avsResultCode)
+          "YYX".equals(avsResultCode)
+              || "X".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.ADDRESS_Y_ZIP_9;
+        avsResult = AuthorizationResult.AvsResult.ADDRESS_Y_ZIP_9;
       } else if (
-        "NYW".equals(avsResultCode)
-        || "W".equals(avsResultCode)
+          "NYW".equals(avsResultCode)
+              || "W".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.ADDRESS_N_ZIP_9;
+        avsResult = AuthorizationResult.AvsResult.ADDRESS_N_ZIP_9;
       } else if (
-        "XXW".equals(avsResultCode)
+          "XXW".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.UNKNOWN;
+        avsResult = AuthorizationResult.AvsResult.UNKNOWN;
       } else if (
-        "XXU".equals(avsResultCode)
+          "XXU".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.UNAVAILABLE;
+        avsResult = AuthorizationResult.AvsResult.UNAVAILABLE;
       } else if (
-        "XXR".equals(avsResultCode)
-        || "R".equals(avsResultCode)
-        || "U".equals(avsResultCode)
-        || "E".equals(avsResultCode)
+          "XXR".equals(avsResultCode)
+              || "R".equals(avsResultCode)
+              || "U".equals(avsResultCode)
+              || "E".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.RETRY;
+        avsResult = AuthorizationResult.AvsResult.RETRY;
       } else if (
-        "XXS".equals(avsResultCode)
-        || "S".equals(avsResultCode)
+          "XXS".equals(avsResultCode)
+              || "S".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.SERVICE_NOT_SUPPORTED;
+        avsResult = AuthorizationResult.AvsResult.SERVICE_NOT_SUPPORTED;
       } else if (
-        "XXE".equals(avsResultCode)
+          "XXE".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.UNKNOWN;
+        avsResult = AuthorizationResult.AvsResult.UNKNOWN;
       } else if (
-        "XXG".equals(avsResultCode)
-        || "G".equals(avsResultCode)
-        || "C".equals(avsResultCode)
-        || "I".equals(avsResultCode)
+          "XXG".equals(avsResultCode)
+              || "G".equals(avsResultCode)
+              || "C".equals(avsResultCode)
+              || "I".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.UNKNOWN;
+        avsResult = AuthorizationResult.AvsResult.UNKNOWN;
       } else if (
-        "YYG".equals(avsResultCode)
-        || "B".equals(avsResultCode)
-        || "M".equals(avsResultCode)
+          "YYG".equals(avsResultCode)
+              || "B".equals(avsResultCode)
+              || "M".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.ADDRESS_N_ZIP_N;
+        avsResult = AuthorizationResult.AvsResult.ADDRESS_N_ZIP_N;
       } else if (
-        "GGG".equals(avsResultCode)
-        || "D".equals(avsResultCode)
+          "GGG".equals(avsResultCode)
+              || "D".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.ADDRESS_Y_ZIP_5;
+        avsResult = AuthorizationResult.AvsResult.ADDRESS_Y_ZIP_5;
       } else if (
-        "YGG".equals(avsResultCode)
-        || "P".equals(avsResultCode)
+          "YGG".equals(avsResultCode)
+              || "P".equals(avsResultCode)
       ) {
-        avsResult=AuthorizationResult.AvsResult.ADDRESS_N_ZIP_5;
+        avsResult = AuthorizationResult.AvsResult.ADDRESS_N_ZIP_5;
       } else {
-        System.err.println("Unexpected value for avsResultCode: "+avsResultCode);
-        avsResult=AuthorizationResult.AvsResult.UNKNOWN;
+        System.err.println("Unexpected value for avsResultCode: " + avsResultCode);
+        avsResult = AuthorizationResult.AvsResult.UNKNOWN;
       }
     }
     if (DEBUG_RESPONSE) {
-      System.out.println("    avsResult="+avsResult);
+      System.out.println("    avsResult=" + avsResult);
     }
 
     if ("Approved".equals(status)) {
       return new AuthorizationResult(
-        getProviderId(),
-        TransactionResult.CommunicationResult.SUCCESS,
-        null,
-        null,
-        null,
-        refNum,
-        null,
-        result,
-        AuthorizationResult.ApprovalResult.APPROVED,
-        null,
-        null,
-        null,
-        null,
-        cvv2ResultCode,
-        cvvResult,
-        avsResultCode,
-        avsResult,
-        authCode
+          getProviderId(),
+          TransactionResult.CommunicationResult.SUCCESS,
+          null,
+          null,
+          null,
+          refNum,
+          null,
+          result,
+          AuthorizationResult.ApprovalResult.APPROVED,
+          null,
+          null,
+          null,
+          null,
+          cvv2ResultCode,
+          cvvResult,
+          avsResultCode,
+          avsResult,
+          authCode
       );
     } else if ("Declined".equals(status)) {
       ConvertedError convertedError = convertedErrors.get(errorcode);
@@ -1124,45 +1124,45 @@ public class USAePay implements MerchantServicesProvider {
         declineReason = AuthorizationResult.DeclineReason.UNKNOWN;
       }
       return new AuthorizationResult(
-        getProviderId(),
-        TransactionResult.CommunicationResult.SUCCESS,
-        null,
-        null,
-        null,
-        refNum,
-        null,
-        result,
-        AuthorizationResult.ApprovalResult.DECLINED,
-        errorcode,
-        declineReason,
-        null,
-        null,
-        cvv2ResultCode,
-        cvvResult,
-        avsResultCode,
-        avsResult,
-        authCode
+          getProviderId(),
+          TransactionResult.CommunicationResult.SUCCESS,
+          null,
+          null,
+          null,
+          refNum,
+          null,
+          result,
+          AuthorizationResult.ApprovalResult.DECLINED,
+          errorcode,
+          declineReason,
+          null,
+          null,
+          cvv2ResultCode,
+          cvvResult,
+          avsResultCode,
+          avsResult,
+          authCode
       );
     } else if ("Verification".equals(status)) {
       return new AuthorizationResult(
-        getProviderId(),
-        TransactionResult.CommunicationResult.SUCCESS,
-        null,
-        null,
-        null,
-        refNum,
-        null,
-        result,
-        AuthorizationResult.ApprovalResult.HOLD,
-        null,
-        null,
-        null,
-        AuthorizationResult.ReviewReason.RISK_MANAGEMENT,
-        cvv2ResultCode,
-        cvvResult,
-        avsResultCode,
-        avsResult,
-        authCode
+          getProviderId(),
+          TransactionResult.CommunicationResult.SUCCESS,
+          null,
+          null,
+          null,
+          refNum,
+          null,
+          result,
+          AuthorizationResult.ApprovalResult.HOLD,
+          null,
+          null,
+          null,
+          AuthorizationResult.ReviewReason.RISK_MANAGEMENT,
+          cvv2ResultCode,
+          cvvResult,
+          avsResultCode,
+          avsResult,
+          authCode
       );
     } else {
       TransactionResult.CommunicationResult communicationResult;
@@ -1176,24 +1176,24 @@ public class USAePay implements MerchantServicesProvider {
         errorCode = TransactionResult.ErrorCode.UNKNOWN;
       }
       return new AuthorizationResult(
-        getProviderId(),
-        communicationResult,
-        result,
-        errorCode,
-        error,
-        refNum,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        cvv2ResultCode,
-        cvvResult,
-        avsResultCode,
-        avsResult,
-        authCode
+          getProviderId(),
+          communicationResult,
+          result,
+          errorCode,
+          error,
+          refNum,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          cvv2ResultCode,
+          cvvResult,
+          avsResultCode,
+          avsResult,
+          authCode
       );
     }
   }
@@ -1202,15 +1202,15 @@ public class USAePay implements MerchantServicesProvider {
   public SaleResult sale(TransactionRequest transactionRequest, CreditCard creditCard) {
     AuthorizationResult authorizationResult = authorizeOrSale(transactionRequest, creditCard, "sale");
     return new SaleResult(
-      authorizationResult,
-      new CaptureResult(
-        authorizationResult.getProviderId(),
-        authorizationResult.getCommunicationResult(),
-        authorizationResult.getProviderErrorCode(),
-        authorizationResult.getErrorCode(),
-        authorizationResult.getProviderErrorMessage(),
-        authorizationResult.getProviderUniqueId()
-      )
+        authorizationResult,
+        new CaptureResult(
+            authorizationResult.getProviderId(),
+            authorizationResult.getCommunicationResult(),
+            authorizationResult.getProviderErrorCode(),
+            authorizationResult.getErrorCode(),
+            authorizationResult.getProviderErrorMessage(),
+            authorizationResult.getProviderUniqueId()
+        )
     );
   }
 
@@ -1251,20 +1251,20 @@ public class USAePay implements MerchantServicesProvider {
 
   @Override
   public void updateCreditCardNumberAndExpiration(
-    CreditCard creditCard,
-    String cardNumber,
-    byte expirationMonth,
-    short expirationYear,
-    String cardCode
+      CreditCard creditCard,
+      String cardNumber,
+      byte expirationMonth,
+      short expirationYear,
+      String cardCode
   ) throws UnsupportedOperationException {
     throw new UnsupportedOperationException();
   }
 
   @Override
   public void updateCreditCardExpiration(
-    CreditCard creditCard,
-    byte expirationMonth,
-    short expirationYear
+      CreditCard creditCard,
+      byte expirationMonth,
+      short expirationYear
   ) throws UnsupportedOperationException {
     throw new UnsupportedOperationException();
   }

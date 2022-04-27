@@ -600,7 +600,7 @@ public class USAePay implements MerchantServicesProvider {
       // Currency
       String currencyCode;
       String isoCode = transactionRequest.getCurrency().getCurrencyCode();
-      if (isoCode.equals("USD")) {
+      if ("USD".equals(isoCode)) {
         currencyCode = "840";
       } else {
         // Additional currency codes are documented here: http://wiki.usaepay.com/developer/currencycode
@@ -923,7 +923,7 @@ public class USAePay implements MerchantServicesProvider {
             throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
           }
           String hashType = responseHash.substring(0, slashPos1);
-          if (!hashType.equals("m")) {
+          if (!"m".equals(hashType)) {
             System.err.println("Unexpected hashType: " + hashType);
             throw new ErrorCodeException(TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
           }

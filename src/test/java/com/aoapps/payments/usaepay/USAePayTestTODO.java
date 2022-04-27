@@ -113,7 +113,7 @@ public class USAePayTestTODO extends TestCase {
       }
       @Override
       public boolean isMember(Principal member) {
-        return member.getName().equals("TestPrincipal");
+        return "TestPrincipal".equals(member.getName());
       }
       @Override
       public Enumeration<? extends Principal> members() {

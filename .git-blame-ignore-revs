@@ -16,3 +16,6 @@
 
 # Performed automatic source code clean-up with rewrite-maven-plugin
 c3a33e4a0a2c1b79b428927accfe03ec54c0ae01
+
+# Performed automatic clean-up with org.openrewrite.java.cleanup.Cleanup
+6e13e0ad41778fdac65c6eeb5987fd40ea3325d4

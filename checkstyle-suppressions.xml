@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ao-payments-payflowPro - Provider for the Payflow Pro XMLPay system.
+Copyright (C) 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of ao-payments-payflowPro.
+
+ao-payments-payflowPro is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ao-payments-payflowPro is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with ao-payments-payflowPro.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+
+  <!-- Will not rename -->
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]payments[/\\]usaepay[/\\]USAePay\.java$"
+    message="'USAePay'"
+  />
+
+  <!-- TODO: Implement tests -->
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]payments[/\\]usaepay[/\\]USAePayTestTODO\.java$"
+    message="'USAePayTestTODO'"
+  />
+
+</suppressions>

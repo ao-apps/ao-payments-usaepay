@@ -60,17 +60,19 @@ import java.util.StringTokenizer;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
- * Provider for the USAePay system<br>
- * <br>
+ * Provider for the USAePay system.
+ * <p>
  * Configuration parameters:
+ * </p>
  * <ol>
  *   <li>providerId - the unique name of the processor</li>
  *   <li>postUrl - the URL used for HTTP POST</li>
  *   <li>key - the source key</li>
  *   <li>pin (optional) - the pin used for MD5 hash transaction verification</li>
  * </ol>
- *
+ * <p>
  * TODO: Get this code listed at http://wiki.usaepay.com/developer/3rdparty
+ * </p>
  *
  * @author  AO Industries, Inc.
  */
@@ -90,6 +92,9 @@ public class USAePay implements MerchantServicesProvider {
   private final String key;
   private final String pin;
 
+  /**
+   * Creates a new USAePay provider.
+   */
   public USAePay(String providerId, String postUrl, String key) {
     this.providerId = providerId;
     this.postUrl = postUrl;
@@ -97,6 +102,9 @@ public class USAePay implements MerchantServicesProvider {
     this.pin = null;
   }
 
+  /**
+   * Creates a new USAePay provider.
+   */
   public USAePay(String providerId, String postUrl, String key, String pin) {
     this.providerId = providerId;
     this.postUrl = postUrl;
@@ -110,7 +118,7 @@ public class USAePay implements MerchantServicesProvider {
   }
 
   /**
-   * Gets the post URL
+   * Gets the post URL.
    */
   public String getPostUrl() {
     return postUrl;
@@ -150,7 +158,7 @@ public class USAePay implements MerchantServicesProvider {
       if (DEBUG_REQUEST) {
         System.out.println("Request:");
       }
-      StringBuilder parameterSB = new StringBuilder();
+      StringBuilder parameterSb = new StringBuilder();
       for (Map.Entry<String, String> entry : request.entrySet()) {
         String name = entry.getKey();
         String value = entry.getValue();
@@ -160,10 +168,10 @@ public class USAePay implements MerchantServicesProvider {
         if (DEBUG_REQUEST) {
           System.out.println("    " + name + "=" + value);
         }
-        if (parameterSB.length() > 0) {
-          parameterSB.append('&');
+        if (parameterSb.length() > 0) {
+          parameterSb.append('&');
         }
-        parameterSB.append(name).append('=').append(encode(value));
+        parameterSb.append(name).append('=').append(encode(value));
       }
 
       String responseString;
@@ -178,7 +186,7 @@ public class USAePay implements MerchantServicesProvider {
         uc.setDoInput(true);
 
         try (DataOutputStream out = new DataOutputStream(uc.getOutputStream())) {
-          out.writeBytes(parameterSB.toString());
+          out.writeBytes(parameterSb.toString());
           out.flush();
         }
 
@@ -340,7 +348,8 @@ public class USAePay implements MerchantServicesProvider {
     initErrors.put("00006", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.PROVIDER_CONFIGURATION_ERROR));
     // 00007 Merchant has been deactivated. Merchant account has been marked as deactivate. Contact USAePay customer service.
     initErrors.put("00007", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.CUSTOMER_ACCOUNT_DISABLED));
-    // 00008 Unable to retrieve current batch. Failed to get the id of the current batch. Typically this indicates that the merchant account is not active or batches are out of sync. Verify all merchant account info provided to usaepay.
+    // 00008 Unable to retrieve current batch. Failed to get the id of the current batch.
+    //       Typically this indicates that the merchant account is not active or batches are out of sync. Verify all merchant account info provided to usaepay.
     initErrors.put("00008", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.UNKNOWN));
     // 00009 Unable To Create Transaction. Please Contact Support. Internal database error, system may be in the process of failing over to backup database server. Retry transaction.
     initErrors.put("00009", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.ERROR_TRY_AGAIN));
@@ -352,7 +361,8 @@ public class USAePay implements MerchantServicesProvider {
     initErrors.put("00012", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INVALID_CARD_NUMBER));
     // 00013 Invalid Card Number (3) Cardnumber failed Luhn Mod-10 Checkdigit Method (ISO 2894/ANSI 4.13)
     initErrors.put("00013", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INVALID_CARD_NUMBER));
-    // 00014 Invalid Credit Card Number (1) Cardnumber passed length, format and checkdigit tests but didn't match any of the cardnumber profiles enabled in the system. Contact USAePay to verify support of cardtype.
+    // 00014 Invalid Credit Card Number (1) Cardnumber passed length, format and checkdigit tests but didn't match any of the cardnumber profiles enabled in the system.
+    //       Contact USAePay to verify support of cardtype.
     initErrors.put("00014", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.CARD_TYPE_NOT_SUPPORTED));
     // 00015 Invalid expiration date. Must be in MMYY format. Expiration contains invalid characters (nothing but numbers allowed)
     initErrors.put("00015", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INVALID_EXPIRATION_DATE));
@@ -374,9 +384,11 @@ public class USAePay implements MerchantServicesProvider {
     initErrors.put("00023", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.PROVIDER_CONFIGURATION_ERROR));
     // 00024 Transaction already voided. The transaction was already marked as voided and wasn't going to be settled anyway.
     initErrors.put("00024", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.UNKNOWN));
-    // 00025 Unable to find transaction in batch. The batchid on the transaction references a batch that doesn't exist. If there isn't a valid batch then trying to void a transaction isn't going to do much.
+    // 00025 Unable to find transaction in batch. The batchid on the transaction references a batch that doesn't exist.
+    //       If there isn't a valid batch then trying to void a transaction isn't going to do much.
     initErrors.put("00025", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.UNKNOWN));
-    // 00026 The batch has already been closed. Please apply a credit instead. The specified transaction has already been settled. Once a transaction has been sent in for settlement it can not be voided.
+    // 00026 The batch has already been closed. Please apply a credit instead. The specified transaction has already been settled.
+    //       Once a transaction has been sent in for settlement it can not be voided.
     initErrors.put("00026", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.UNKNOWN));
     // 00027 Gateway temporarily offline. Please try again shortly. (2) Error communicating with the processing backend. Retry transaction.
     initErrors.put("00027", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.ERROR_TRY_AGAIN));
@@ -424,9 +436,12 @@ public class USAePay implements MerchantServicesProvider {
     initErrors.put("00070", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INVALID_AMOUNT, AuthorizationResult.DeclineReason.MAX_SALE_EXCEEDED));
     // 00071 Transaction out of balance. Transaction does not add up correctly: subtotal + tip + tax + shipping - discount must equal the amount.
     initErrors.put("00071", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INVALID_AMOUNT));
-    // 00080 Transaction type not allowed from this source. The requested command (sale, authonly, etc) was blocked by the merchant's source key. The command must be checked on source key settings screen to be accepted by the gateway.
+    // 00080 Transaction type not allowed from this source. The requested command (sale, authonly, etc) was blocked by the merchant's source key.
+    //       The command must be checked on source key settings screen to be accepted by the gateway.
     initErrors.put("00080", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INVALID_TRANSACTION_TYPE));
-    // 02034 Your billing address does not match your credit card. Please check with your bank. The AVS result received from the platform was blocked by the Merchant's fraud preferences. Funds were not held for this transaction.
+    // 02034 Your billing address does not match your credit card. Please check with your bank.
+    //       The AVS result received from the platform was blocked by the Merchant's fraud preferences.
+    //       Funds were not held for this transaction.
     initErrors.put("02034", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.UNKNOWN, AuthorizationResult.DeclineReason.AVS_MISMATCH));
     // 10001 Processing Error Please Try Again Error from FDMS Nashville. Invalid Transaction Code
     initErrors.put("10001", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.TRANSACTION_NOT_FOUND));
@@ -500,7 +515,8 @@ public class USAePay implements MerchantServicesProvider {
     initErrors.put("10099", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.NO_SESSION));
     // 10100 Your account has been locked for excessive login attempts. The user failed login too many times. Their account has been locked for 60 minutes.
     initErrors.put("10100", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.CUSTOMER_ACCOUNT_DISABLED));
-    // 10101 Your username has been de-activated due to inactivity for 90 days. Please contact support to re-activate your account. VISA Cisp requires locking of accounts that have not been accessed in the past 90 days.
+    // 10101 Your username has been de-activated due to inactivity for 90 days. Please contact support to re-activate your account.
+    //       VISA Cisp requires locking of accounts that have not been accessed in the past 90 days.
     initErrors.put("10101", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.CUSTOMER_ACCOUNT_DISABLED));
     // 10102 Unable to open certificate. Unable to load required certificate. Contact Support.
     initErrors.put("10102", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.MUST_BE_ENCRYPTED));
@@ -532,7 +548,8 @@ public class USAePay implements MerchantServicesProvider {
     initErrors.put("10115", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.GATEWAY_SECURITY_GUIDELINES_NOT_MET));
     // 10116 Unable to verify card ID number. CVV2, CID, etc result was blocked by CVVresponse fraud module.
     initErrors.put("10116", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INVALID_CARD_CODE, AuthorizationResult.DeclineReason.CVV2_MISMATCH));
-    // 10117 Transaction authentication required. The merchant has set a pin for this transaction but the api did not receive a UMmd5hash. They need to either upgrade their software to send the hash or they need to remove the pin on the source.
+    // 10117 Transaction authentication required. The merchant has set a pin for this transaction but the api did not receive a UMmd5hash.
+    //       They need to either upgrade their software to send the hash or they need to remove the pin on the source.
     initErrors.put("10117", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.HASH_CHECK_FAILED));
     // 10118 Transaction authentication failed. The UMmd5hash did not match the hash that was calculated for the transaction.
     initErrors.put("10118", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.HASH_CHECK_FAILED));
@@ -546,7 +563,8 @@ public class USAePay implements MerchantServicesProvider {
     initErrors.put("10122", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.PROVIDER_CONFIGURATION_ERROR));
     // 10123 Success Operation was successful. -
     initErrors.put("10123", new ConvertedError(TransactionResult.CommunicationResult.SUCCESS, TransactionResult.ErrorCode.UNKNOWN));
-    // 10124 Unsupported transaction type. Only authonly, sales and voids may be captured. An attempt was made to settle a transaction that can not be captured. This error will occur if you attempt to capture an echeck transaction.
+    // 10124 Unsupported transaction type. Only authonly, sales and voids may be captured. An attempt was made to settle a transaction that can not be captured.
+    //       This error will occur if you attempt to capture an echeck transaction.
     initErrors.put("10124", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INVALID_TRANSACTION_TYPE));
     // 10125 Original transaction not approved. You are trying to capture (settle) a transaction that was declined or resulted in an error. You can only capture approved transactions.
     initErrors.put("10125", new ConvertedError(TransactionResult.CommunicationResult.GATEWAY_ERROR, TransactionResult.ErrorCode.INVALID_TRANSACTION_TYPE));
@@ -571,7 +589,7 @@ public class USAePay implements MerchantServicesProvider {
   private AuthorizationResult authorizeOrSale(TransactionRequest transactionRequest, CreditCard creditCard, String command) {
     // Build the map of request parameters, catching ErrorCodeException after this step
     // because any of these errors will all be considered as TransactionResult.CommunicationResult.LOCAL_ERROR
-    Map<String, String> request = new HashMap<>();
+    final Map<String, String> request = new HashMap<>();
     try {
       // Build the request parameters
       request.put("UMcommand", command);
@@ -810,27 +828,29 @@ public class USAePay implements MerchantServicesProvider {
         try {
           // Generate a seed
           String seed;
-          {
-            // It didn't like Hex seed
-            //byte[] randomBytes = new byte[64];
-            //secureRandom.nextBytes(randomBytes);
-            //seed = getFullHexString(randomBytes);
-            long randomLong = secureRandom.nextLong();
-            if (randomLong == Long.MIN_VALUE) {
-              randomLong = 0;
+            {
+              // It didn't like Hex seed
+              //byte[] randomBytes = new byte[64];
+              //secureRandom.nextBytes(randomBytes);
+              //seed = getFullHexString(randomBytes);
+              long randomLong = secureRandom.nextLong();
+              if (randomLong == Long.MIN_VALUE) {
+                randomLong = 0;
+              }
+              if (randomLong < 0) {
+                randomLong = -randomLong;
+              }
+              seed = Long.toString(randomLong);
             }
-            if (randomLong < 0) {
-              randomLong = -randomLong;
-            }
-            seed = Long.toString(randomLong);
-          }
           // Generate the MD5 hash
           StringBuilder hashData = new StringBuilder();
           if (command.indexOf(':') != -1) {
-            throw new ErrorCodeException(new IllegalArgumentException("command may not contain a colon (:): " + command), TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+            throw new ErrorCodeException(new IllegalArgumentException("command may not contain a colon (:): " + command),
+                TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
           }
           if (pin.indexOf(':') != -1) {
-            throw new ErrorCodeException(new IllegalArgumentException("pin may not contain a colon (:): " + pin), TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
+            throw new ErrorCodeException(new IllegalArgumentException("pin may not contain a colon (:): " + pin),
+                TransactionResult.ErrorCode.HASH_CHECK_FAILED, "TransactionResult.ErrorCode.HASH_CHECK_FAILED");
           }
           hashData.append(command).append(':').append(pin).append(':').append(amount.toString()).append(':');
           if (invoiceNumber != null && invoiceNumber.length() > 0) {
@@ -869,7 +889,7 @@ public class USAePay implements MerchantServicesProvider {
     }
 
     // Now try to process, considering as a GATEWAY_ERROR for any ErrorCodeExceptions.
-    Map<String, String> results;
+    final Map<String, String> results;
     try {
       // Now that the local request has been created successfully, contact the USAePay API.
       results = submitTransaction(request, transactionRequest.getTestMode());
@@ -896,16 +916,16 @@ public class USAePay implements MerchantServicesProvider {
       );
     }
 
-    String status = results.get("UMstatus");
-    String authCode = results.get("UMauthCode");
-    String refNum = results.get("UMrefNum");
-    String avsResultCode = results.get("UMavsResultCode");
-    String cvv2ResultCode = results.get("UMcvv2ResultCode");
-    String result = results.get("UMresult");
-    String error = results.get("UMerror");
-    String errorcode = results.get("UMerrorcode");
-    String isDuplicate = results.get("UMisDuplicate");
-    String responseHash = results.get("UMresponseHash");
+    final String status = results.get("UMstatus");
+    final String authCode = results.get("UMauthCode");
+    final String refNum = results.get("UMrefNum");
+    final String avsResultCode = results.get("UMavsResultCode");
+    final String cvv2ResultCode = results.get("UMcvv2ResultCode");
+    final String result = results.get("UMresult");
+    final String error = results.get("UMerror");
+    final String errorcode = results.get("UMerrorcode");
+    final String isDuplicate = results.get("UMisDuplicate");
+    final String responseHash = results.get("UMresponseHash");
 
     if (pin != null && pin.length() > 0) {
       try {
@@ -974,7 +994,7 @@ public class USAePay implements MerchantServicesProvider {
     }
 
     // Convert to CvvResult
-    AuthorizationResult.CvvResult cvvResult;
+    final AuthorizationResult.CvvResult cvvResult;
     if ("M".equals(cvv2ResultCode)) {
       cvvResult = AuthorizationResult.CvvResult.MATCH;
     } else if ("N".equals(cvv2ResultCode)) {
@@ -1000,7 +1020,7 @@ public class USAePay implements MerchantServicesProvider {
     }
 
     // Convert to AvsResult
-    AuthorizationResult.AvsResult avsResult;
+    final AuthorizationResult.AvsResult avsResult;
     if (avsResultCode == null) {
       avsResult = AuthorizationResult.AvsResult.UNAVAILABLE;
     } else {
@@ -1280,7 +1300,12 @@ public class USAePay implements MerchantServicesProvider {
   }
 
   @Override
-  public Map<String, TokenizedCreditCard> getTokenizedCreditCards(Map<String, CreditCard> persistedCards, PrintWriter verboseOut, PrintWriter infoOut, PrintWriter warningOut) throws UnsupportedOperationException {
+  public Map<String, TokenizedCreditCard> getTokenizedCreditCards(
+      Map<String, CreditCard> persistedCards,
+      PrintWriter verboseOut,
+      PrintWriter infoOut,
+      PrintWriter warningOut
+  ) throws UnsupportedOperationException {
     throw new UnsupportedOperationException();
   }
 }

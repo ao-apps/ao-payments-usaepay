@@ -88,15 +88,18 @@ public class USAePayTestTODO extends TestCase {
       public String getName() {
         return "TestPrincipal";
       }
+
       @Override
       public int hashCode() {
         return getName().hashCode();
       }
+
       @Override
       @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
       public boolean equals(Object obj) {
         return super.equals(obj);
       }
+
       @Override
       public String toString() {
         return getName();
@@ -107,18 +110,22 @@ public class USAePayTestTODO extends TestCase {
       public boolean addMember(Principal user) {
         throw new RuntimeException("Unimplemented");
       }
+
       @Override
       public String getName() {
         return "TestGroup";
       }
+
       @Override
       public boolean isMember(Principal member) {
         return "TestPrincipal".equals(member.getName());
       }
+
       @Override
       public Enumeration<? extends Principal> members() {
         throw new RuntimeException("Unimplemented");
       }
+
       @Override
       public boolean removeMember(Principal user) {
         throw new RuntimeException("Unimplemented");

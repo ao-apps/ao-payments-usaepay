@@ -22,7 +22,7 @@ Provider for the [USAePay](https://usaepay.info/) system.
 * [Project Home](https://oss.aoapps.com/payments/usaepay/)
 * [Changelog](https://oss.aoapps.com/payments/usaepay/changelog)
 * [API Docs](https://oss.aoapps.com/payments/usaepay/apidocs/)
-* [Maven Central Repository](https://search.maven.org/artifact/com.aoapps/ao-payments-usaepay)
+* [Maven Central Repository](https://central.sonatype.com/search?namespace=com.aoapps&q=a%3Aao-payments-usaepay)
 * [GitHub](https://github.com/ao-apps/ao-payments-usaepay)
 
 ## Contact Us

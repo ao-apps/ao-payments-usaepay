@@ -1,6 +1,6 @@
 /*
  * ao-payments-usaepay - Provider for the USAePay system.
- * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2015, 2016, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2015, 2016, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -827,20 +827,20 @@ public class USAePay implements MerchantServicesProvider {
         try {
           // Generate a seed
           String seed;
-            {
-              // It didn't like Hex seed
-              //byte[] randomBytes = new byte[64];
-              //secureRandom.nextBytes(randomBytes);
-              //seed = getFullHexString(randomBytes);
-              long randomLong = secureRandom.nextLong();
-              if (randomLong == Long.MIN_VALUE) {
-                randomLong = 0;
-              }
-              if (randomLong < 0) {
-                randomLong = -randomLong;
-              }
-              seed = Long.toString(randomLong);
+          {
+            // It didn't like Hex seed
+            //byte[] randomBytes = new byte[64];
+            //secureRandom.nextBytes(randomBytes);
+            //seed = getFullHexString(randomBytes);
+            long randomLong = secureRandom.nextLong();
+            if (randomLong == Long.MIN_VALUE) {
+              randomLong = 0;
             }
+            if (randomLong < 0) {
+              randomLong = -randomLong;
+            }
+            seed = Long.toString(randomLong);
+          }
           // Generate the MD5 hash
           StringBuilder hashData = new StringBuilder();
           if (command.indexOf(':') != -1) {

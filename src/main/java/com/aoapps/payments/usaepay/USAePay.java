@@ -140,12 +140,12 @@ public class USAePay implements MerchantServicesProvider {
 
   private static String encode(String value) {
     return URLEncoder.encode(value, ENCODING);
-    //return value.replace('&', '-').replace('=', '-');
+    // return value.replace('&', '-').replace('=', '-');
   }
 
   private static String decode(String value) {
     return URLDecoder.decode(value, ENCODING);
-    //return value;
+    // return value;
   }
 
   /**
@@ -829,9 +829,9 @@ public class USAePay implements MerchantServicesProvider {
           String seed;
           {
             // It didn't like Hex seed
-            //byte[] randomBytes = new byte[64];
-            //secureRandom.nextBytes(randomBytes);
-            //seed = getFullHexString(randomBytes);
+            // byte[] randomBytes = new byte[64];
+            // secureRandom.nextBytes(randomBytes);
+            // seed = getFullHexString(randomBytes);
             long randomLong = secureRandom.nextLong();
             if (randomLong == Long.MIN_VALUE) {
               randomLong = 0;

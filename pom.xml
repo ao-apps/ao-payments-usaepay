@@ -205,6 +205,7 @@ along with ao-payments-usaepay.  If not, see <https://www.gnu.org/licenses/>.
                   commons-digester-2.1.jar
                 -->
                 <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
+                <Include-Resource>{maven-resources}</Include-Resource>
                 <Private-Package>!.</Private-Package>
               </instructions>
             </configuration>
